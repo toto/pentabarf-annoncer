@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-
+  map.root :controller => :rooms
   
   map.resources :people
 

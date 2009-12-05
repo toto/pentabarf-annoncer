@@ -23,11 +23,18 @@
 require 'open-uri'
 
 class Event < ActiveRecord::Base
+  MAX_OTHER_ROOM_EVENTS = 2
+  MAX_THIS_ROOM_EVENTS = 6
+  named_scope :for_day_in_conference, lambda {|date, conference|
+    {:conditions => ["(start_time BETWEEN ? AND ?)",
+                     conference.begin_time(date),
+                     conference.end_time(date)]}
+  }
 
   named_scope :for_date, lambda {|date|
     {:conditons => ['(start_time >= ?  AND start_time <= ?) AND 
-                    (end_time >= ? AND end_time <= ?)',
-                    date, date, date, date]}
+                     (end_time >= ? AND end_time <= ?)',
+                     date, date, date, date]}
   }
 
   
@@ -49,7 +56,10 @@ class Event < ActiveRecord::Base
     write_attribute(:duration, value)
   end
   
-  
+  def same_conference_day?
+    (self.start_time >= (self.conference.begin_time)) &&
+    (self.start_time <= (self.conference.end_time))
+  end
   
   class <<self
     def import_from_pentabarf_xml(raw_xml_or_io)
@@ -107,6 +117,8 @@ class Event < ActiveRecord::Base
     def inheritance_column
       'some_thing_else_so_i_can_use_type_as_a_regular_column'
     end    
+    
+
   end  
 
   protected

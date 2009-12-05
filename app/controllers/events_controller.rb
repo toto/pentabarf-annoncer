@@ -1,9 +1,10 @@
 class EventsController < ApplicationController
   before_filter :find_room
   before_filter :find_current_event
+  
   def index
-    @events = @room.events#.al(:page => params[:page],
-                          #          :order => 'start_time ASC')
+    events =  Event.for_day_in_conference(Date.civil(2009,12,27), @conference).all(:order => 'start_time ASC')
+    @events = events.group_by(&:room_id)
   end
   
   def show
@@ -14,7 +15,6 @@ class EventsController < ApplicationController
     end
   end
   
-  before_filter :find_current_event
   protected
   def find_room
     @room = Room.find(params[:room_id])

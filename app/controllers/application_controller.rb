@@ -5,8 +5,15 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+  layout 'default'
+  
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-
+  before_filter :find_conference
+  
+  protected
+  def find_conference
+    @conference = Conference.first # FIXME
+  end
 end

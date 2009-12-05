@@ -1,7 +1,27 @@
-<h2><%= h(@room.name) %></h2>
 
-<ul class="events">
-  <%- for event in @events  -%>
-    <%= render :partial => "event", :object => event %>
-  <%- end -%>
-</ul>
+
+<%- @events.keys.sort.each do |key| -%>
+  <%- next if key.to_s == @room.id.to_s -%>
+  <div class="other_rooms">
+    <h3><%= h(@events[key].first.room.name) %></h3>
+    
+    <ul class="events">
+      <%- @events[key].each_with_index do |event, index|  -%>
+        <%- break if index >= Event::MAX_OTHER_ROOM_EVENTS -%>
+        <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+      <%- end -%>
+    </ul>
+  </div>  
+<%- end -%>
+
+
+<div class="this_room">
+  <h2><%= h(@room.name) %></h2>
+  
+  <ul class="events">
+    <%- @events[@room.id].each_with_index do |event, index|  -%>
+      <%- break if index >= Event::MAX_THIS_ROOM_EVENTS -%>
+      <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+    <%- end -%>
+  </ul>
+</div>

@@ -15,4 +15,11 @@
 class Conference < ActiveRecord::Base
   has_many :events
   
+  def begin_time(date=Time.now.to_date)
+    date.to_datetime.at_beginning_of_day + self.day_change.hour.hours + self.day_change.min.minutes
+  end
+  
+  def end_time(date=Time.now.to_date)
+    date.to_datetime.tomorrow + self.day_change.hour.hours + self.day_change.min.minutes
+  end
 end
