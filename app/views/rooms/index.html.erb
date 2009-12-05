@@ -1,0 +1,5 @@
+<ul>
+  <%- for room in @rooms -%>
+  <li><%= link_to("#{room.name}", room_events_path(room)) %></li>
+  <%- end -%>
+</ul>

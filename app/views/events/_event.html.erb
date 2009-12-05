@@ -1,0 +1,17 @@
+<%- content_tag_for(:li, event) do -%>
+  <div class="start_time">
+    <%- if event.start_time && event.start_time < Time.now  -%>
+    Running
+    <%- else -%>
+    Starts <%= l(event.start_time, :format => :short) %> 
+    <%- end -%>
+  </div>
+  <dl>
+    <dt><%= h(event.title) %></dt>
+    <dd><%= h(event.subtitle) %></dd>
+    <dd>
+      <%= h(event.people.select{|i| !i.name.blank?}.collect(&:name).join(', ')) %>
+      <%= 'et. al.' if event.people.any?{|i| i.name.blank?}  %>
+    </dd>
+  </dl>  
+<%- end -%>

@@ -1,0 +1,7 @@
+<h2><%= h(@room.name) %></h2>
+
+<ul class="events">
+  <%- for event in @events  -%>
+    <%= render :partial => "event", :object => event %>
+  <%- end -%>
+</ul>
