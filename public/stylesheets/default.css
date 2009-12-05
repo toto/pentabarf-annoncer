@@ -6,6 +6,10 @@ body {
   line-height: 150%;
 }
 
+h1 {
+  font-size: 1.8em;
+}
+
 dl dd {
   margin: 0;
 }
@@ -29,10 +33,11 @@ ul.events {
 }
 
 ul.events li {
-  padding: 4px;
+  padding: 8px;
   margin: 0;
   margin-bottom: 5px;
   padding-bottom: 5px;
+  -webkit-border-radius: 10px;
 }
 
 ul.events li.even {
