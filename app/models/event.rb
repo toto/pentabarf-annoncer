@@ -31,11 +31,8 @@ class Event < ActiveRecord::Base
                      conference.end_time(date)]}
   }
 
-  named_scope :for_date, lambda {|date|
-    {:conditons => ['(start_time >= ?  AND start_time <= ?) AND 
-                     (end_time >= ? AND end_time <= ?)',
-                     date, date, date, date]}
-  }
+  named_scope :future, {:conditions => ['(start_time >= ?)', Time.now]}
+
 
   
   has_and_belongs_to_many :people, :join_table => "events_people", :foreign_key => "event_id"

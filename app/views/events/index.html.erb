@@ -1,15 +1,22 @@
-<h1><%= @conference.title %> – Upcoming events</h1>
 
 
-<%- @events.keys.sort.each do |key| -%>
-  <%- next if key.to_s == @room.id.to_s -%>
+<h1>Upcoming events</h1>
+
+
+<%- @events.keys.sort{|a,b| a.name <=> b.name}.each do |key| -%>
+  <%- next if key.id.to_s == @room.id.to_s -%>
   <div class="other_rooms">
-    <h3><%= h(@events[key].first.room.name) %></h3>
+    <h3><%= h(key.name) %></h3>
     
     <ul class="events">
-      <%- @events[key].each_with_index do |event, index|  -%>
-        <%- break if index >= Event::MAX_OTHER_ROOM_EVENTS -%>
-        <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+      <%- events = @events[key] -%>
+      <%- unless events.blank? -%>
+        <%- events.each_with_index do |event, index|  -%>
+          <%- break if index >= Event::MAX_OTHER_ROOM_EVENTS -%>
+          <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+        <%- end -%>
+      <%- else -%>
+        <li><em>No more events today</em></li>      
       <%- end -%>
     </ul>
   </div>  
@@ -20,9 +27,36 @@
   <h2><%= h(@room.name) %></h2>
   
   <ul class="events">
-    <%- @events[@room.id].each_with_index do |event, index|  -%>
-      <%- break if index >= Event::MAX_THIS_ROOM_EVENTS -%>
-      <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+    <%- this_rooms_events = @events[@room] -%>
+    <%- unless this_rooms_events.blank? -%>
+      <%- this_rooms_events.each_with_index do |event, index|  -%>
+        <%- break if index >= Event::MAX_THIS_ROOM_EVENTS -%>
+        <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
+      <%- end -%>
+    <%- else -%>
+      <li><em>No more events today</em></li>
     <%- end -%>
+    
   </ul>
 </div>
+
+<%- content_for(:javascript) do -%>
+  <script type="text/javascript" charset="utf-8">
+    events = <%= @events.to_json %>;
+    $(document).ready(function() {
+      $(function($) {
+        var options = {
+          format: '%d %b %H:%M:%S' // 24-hour
+        }          
+        $('.jclock').jclock(options);
+      });
+      
+      
+    });
+    
+  </script>
+<%- end -%>
+
+<%- content_for(:notification) do -%>
+  <%= render :partial => "shared/clock" %>
+<%- end -%>

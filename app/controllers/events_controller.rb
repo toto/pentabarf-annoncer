@@ -3,8 +3,12 @@ class EventsController < ApplicationController
   before_filter :find_current_event
   
   def index
-    events =  Event.for_day_in_conference(Date.civil(2009,12,27), @conference).all(:order => 'start_time ASC')
-    @events = events.group_by(&:room_id)
+    events =  Event.for_day_in_conference(Time.now.to_date, @conference).future.all(:order => 'start_time ASC')
+    
+    @events = events.group_by(&:room)
+
+    Room.all.each{|r| @events[r] ||= []}
+
   end
   
   def show
@@ -21,6 +25,6 @@ class EventsController < ApplicationController
   end
   
   def find_current_event
-    @current_event = @room.events.for_date(Time.now)    
+    #@current_event = @room.events.for_date(Time.now)    
   end  
 end

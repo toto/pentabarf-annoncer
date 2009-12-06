@@ -1,7 +1,8 @@
 <%- even = false unless defined? even -%>
-<%- content_tag_for(:li, event, :class => (even ? 'even' : 'odd')) do -%>
+<%- content_tag_for(:li, event, :class => (even ? 'even' : nil)) do -%>
   <div class="start_time">
-    <%- if event.start_time && event.start_time < Time.now  -%>
+    <%= l(event.start_time, :format => :long) %> 
+    <%- if event.start_time < Time.now && event.end_time > Time.now  -%>
     Running
     <%- else -%>
     <%= l(event.start_time, :format => :time) %> 

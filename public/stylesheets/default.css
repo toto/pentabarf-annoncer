@@ -26,6 +26,24 @@ dl {
   height: 768px;
 }
 
+#notification {
+  padding: 5px 10px 10px 12px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 45px;
+  width: auto;
+  -webkit-border-bottom-left-radius: 10px;
+  background-color: #E4E4E4;  
+}
+
+#notification .jclock {
+  padding-top: 10px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 30pt;
+}
+
 ul.events {
   list-style: none inside;
   padding: 0;
