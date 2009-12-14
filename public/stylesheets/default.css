@@ -84,3 +84,6 @@ dl dd.people {
   font-style: italic;
   font-size: 11pt;
 }
+.blue {
+  border: 1px solid blue;
+}

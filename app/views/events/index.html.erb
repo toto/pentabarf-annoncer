@@ -46,12 +46,12 @@
     $(document).ready(function() {
       $(function($) {
         var options = {
-          format: '%d %b %H:%M:%S' // 24-hour
+          format: '%d %b %H:%M' // 24-hour
         }          
         $('.jclock').jclock(options);
       });
       
-      
+      $.getScript('<%= room_events_url(@room, :format => :js) %>');
     });
     
   </script>

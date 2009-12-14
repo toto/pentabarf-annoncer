@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  
   before_filter :find_room
   before_filter :find_current_event
   
@@ -8,7 +10,33 @@ class EventsController < ApplicationController
     @events = events.group_by(&:room)
 
     Room.all.each{|r| @events[r] ||= []}
-
+    
+    respond_to do |format| 
+      format.html
+      format.json { render(:json => @events) }      
+      format.js do
+        render(:update) do |page|
+          @event.values.flatten.each do |event|
+            
+            page << %Q{
+              var current_event_ids = $(".")
+              
+              if($(''))
+            }
+          end
+          
+          page << %Q{
+            
+            $(".this_room li").each(function(i){
+              this.style.color = 'blue'
+            });
+            $(".other_rooms li").each(function(i){
+              this.style.color = 'red'
+            });            
+          }
+        end
+      end
+    end
   end
   
   def show
@@ -22,6 +50,7 @@ class EventsController < ApplicationController
   protected
   def find_room
     @room = Room.find(params[:room_id])
+    @rooms = Room.all
   end
   
   def find_current_event
