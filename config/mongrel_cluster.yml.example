@@ -5,7 +5,7 @@ log_file: log/mongrel.log
 port: 3000
 pid_file: tmp/pids/mongrel.pid
 servers: 3
-group: announcer
+user: announcer
 group: announcer
 environment: production
 
