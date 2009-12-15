@@ -1,8 +1,10 @@
 --- 
-log_file: /home/announcer/app/shared/log/mongrel.log
+chdir: /home/announcer/app/current
+log_file: log/mongrel.log
 port: 3000
-pid_file: /home/announcer/app/shared/pids/mongrel.pid
+pid_file: pids/mongrel.pid
 servers: 3
 group: announcer
 group: announcer
+environment: production
 
