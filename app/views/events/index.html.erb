@@ -1,60 +1,132 @@
 
+<script type="text/javascript" charset="utf-8">
+  function domIdForEvent(this_event) {
+    return 'room_' + this_event['room_id'] + '_event_' + this_event['id'];
+  }
+
+  function makeListEntry(this_event) {
+    var date =  Date.parse(this_event['start_time']);
+
+    var li = '<li id="' + domIdForEvent(this_event) +
+    '" class="event" style="display: none">'+
+    '<dl><dt class="title">' + 
+    '<span class="start_time">' + this_event['human_start_time'] + '</span>' +
+    this_event['title'] + '</dt>' +
+    '<dt class="subtitle">' + this_event['subtitle'] + '</dt>' +
+    '<dd class="people">' + '' + '</dd>' +
+    '</dl>' + "</li>";
+    
+    return $(li);
+  }
+
+  function insertEventNotInList(list_selector, events) {
+//    var ids_should_be_present = events.map(function() {
+//      return this['id']
+//    });
+    
+  //  $.each( ids_should_be_present, function() {
+//      if(!$())
+  //  })
+  }
+  
+  
+  function getEventsAndUpdateList(room_id, limit) {
+    var url = "/rooms/" + room_id + "/events.json?limit=" + limit;
+    console.log("gettin: " + url);
+    $.getJSON(url,
+              function(data) {
+                jQuery.each(data, function(index) {
+                  var entry = makeListEntry(this['event']);
+                  if( $('#' + domIdForEvent(this['event'])).length ) {
+                    $('#' + domIdForEvent(this['event'])).replaceWith(entry);
+                    $('#' + domIdForEvent(this['event'])).show();
+                  }
+                  else {           
+                    entry.appendTo("#room_" + room_id + "_events");
+                    $('#' + domIdForEvent(this['event'])).toggle("slow");                    
+                  }
+
+
+                });
+                var ids_from_server = jQuery.map(data, function(n,i) {
+
+                  return domIdForEvent(n['event']);
+                });
+                var ids_on_page = jQuery.map($("#room_" + room_id + "_events li"), function(n,i) {
+
+                  return n.id;
+                });
+                
+
+
+                
+               
+                jQuery.each(ids_on_page, function(index) {
+                  var inArray = false;
+                  for (var i = ids_from_server.length - 1; i >= 0; i--){
+                    inArray = (ids_from_server[i] == this);
+                    if(inArray)
+                      break;
+                  };
+                  
+                  console.log("in array: " + inArray);
+                  
+                  if(!inArray) {
+                    $('#' + this).hide("slow");
+                    console.log("would remove: " + this);
+                  }
+
+                });
+              });    
+  }
+</script>
 
 <h1>Upcoming events</h1>
 
-
-<%- @events.keys.sort{|a,b| a.name <=> b.name}.each do |key| -%>
-  <%- next if key.id.to_s == @room.id.to_s -%>
-  <div class="other_rooms">
-    <h3><%= h(key.name) %></h3>
-    
-    <ul class="events">
-      <%- events = @events[key] -%>
-      <%- unless events.blank? -%>
-        <%- events.each_with_index do |event, index|  -%>
-          <%- break if index >= Event::MAX_OTHER_ROOM_EVENTS -%>
-          <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
-        <%- end -%>
-      <%- else -%>
-        <li><em>No more events today</em></li>      
-      <%- end -%>
+<%- @other_rooms.each do |room| -%>
+  <div class="other_rooms room">
+    <h3><%= h(room.name) %></h3>
+    <ul class="events" id="room_<%= room.id %>_events">
     </ul>
-  </div>  
+  </div>
+  
+  <script type="text/javascript" charset="utf-8">
+    
+    var call = 'getEventsAndUpdateList("<%= room.id %>", "<%= Event::MAX_OTHER_ROOM_EVENTS %>");';
+    eval(call);
+    setInterval ( call, <%= Event::REFRESH_TIME %>);
+  </script>  
+  
 <%- end -%>
 
 
-<div class="this_room">
+<div class="this_room room">
   <h2><%= h(@room.name) %></h2>
   
-  <ul class="events">
-    <%- this_rooms_events = @events[@room] -%>
-    <%- unless this_rooms_events.blank? -%>
-      <%- this_rooms_events.each_with_index do |event, index|  -%>
-        <%- break if index >= Event::MAX_THIS_ROOM_EVENTS -%>
-        <%= render :partial => "event", :object => event, :locals => {:even => ((index % 2) == 0)} %>
-      <%- end -%>
-    <%- else -%>
-      <li><em>No more events today</em></li>
-    <%- end -%>
+  <ul class="events" id="room_<%= @room.id %>_events">
     
   </ul>
+  <script type="text/javascript" charset="utf-8">
+    var call = 'getEventsAndUpdateList("<%= @room.id %>", "<%= Event::MAX_THIS_ROOM_EVENTS %>");';
+    eval(call);
+    setInterval ( call, <%= Event::REFRESH_TIME %>);
+    
+  </script>  
 </div>
 
 <%- content_for(:javascript) do -%>
-  <script type="text/javascript" charset="utf-8">
-    events = <%= @events.to_json %>;
-    $(document).ready(function() {
-      $(function($) {
-        var options = {
-          format: '%d %b %H:%M' // 24-hour
-        }          
-        $('.jclock').jclock(options);
-      });
-      
-      $.getScript('<%= room_events_url(@room, :format => :js) %>');
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $(function($) {
+      var options = {
+        format: '%d %b %H:%M' // 24-hour
+      }          
+      $('.jclock').jclock(options);
     });
     
-  </script>
+  });
+  
+</script>
 <%- end -%>
 
 <%- content_for(:notification) do -%>

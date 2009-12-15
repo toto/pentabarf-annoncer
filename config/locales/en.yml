@@ -11,4 +11,4 @@ en:
       only_second: "%S"
       only_month_and_year: "%B %Y"
       numeric: "%d.%m.%Y %H:%M" 
-      short_numeric: "%d.%m.%y %H:%M "
+      short_numeric: "%d.%m. %H:%M "

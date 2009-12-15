@@ -10,4 +10,9 @@
 
 class Room < ActiveRecord::Base
   has_many :events
+  
+  named_scope :without_room, lambda {|room|
+    {:conditions => ['id <> ?', room.id],
+     :order => 'name ASC'}
+  }
 end

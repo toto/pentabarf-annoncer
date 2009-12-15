@@ -24,7 +24,9 @@ require 'open-uri'
 
 class Event < ActiveRecord::Base
   MAX_OTHER_ROOM_EVENTS = 2
-  MAX_THIS_ROOM_EVENTS = 6
+  MAX_THIS_ROOM_EVENTS = 5
+  REFRESH_TIME = (30.seconds.to_i * 1000)
+  
   named_scope :for_day_in_conference, lambda {|date, conference|
     {:conditions => ["(start_time BETWEEN ? AND ?)",
                      conference.begin_time(date),
@@ -32,7 +34,10 @@ class Event < ActiveRecord::Base
   }
 
   named_scope :future, {:conditions => ['(start_time >= ?)', Time.now]}
-
+  named_scope :in_room, lambda {|room|
+    {:conditions => ['room_id = ?', room.id]}  
+  }
+  
 
   
   has_and_belongs_to_many :people, :join_table => "events_people", :foreign_key => "event_id"
@@ -114,9 +119,27 @@ class Event < ActiveRecord::Base
     def inheritance_column
       'some_thing_else_so_i_can_use_type_as_a_regular_column'
     end    
-    
 
+    def make_some_events_current
+      start_date = Event.first.date
+      
+      Event.find(:all, :conditions => ['date = ?', start_date]).each do |event|
+        event.date = Time.now.to_date
+        event.save
+      end
+      
+      1.upto(3) do |i|
+        Event.find(:all, :conditions => ['date = ?', start_date + i.days]).each do |event|
+          event.date = Time.now.to_date  + i.day
+          event.save        
+        end        
+      end
+    end    
   end  
+  
+  def human_start_time
+    I18n.l(self.start_time, :format => :time)
+  end
 
   protected
   def update_end_date_and_start_date

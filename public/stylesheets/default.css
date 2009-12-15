@@ -4,10 +4,13 @@ body {
   font-size: 14pt;
   font-family: Arial, "MS Trebuchet", sans-serif;
   line-height: 150%;
+  background-color: black;
 }
 
 h1 {
+  color: white;
   font-size: 1.8em;
+  margin-left: 15px;
 }
 
 dl dd {
@@ -53,24 +56,51 @@ ul.events {
 ul.events li {
   padding: 8px;
   margin: 0;
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  -webkit-border-radius: 10px;
+  margin-bottom: 8pt;
+  padding-bottom: 8pt;
+  border-bottom: 1px solid #939393;
 }
 
-ul.events li.even {
-  background-color: #E4E4E4;
-  
+ul.events li:last-child {
+   border-bottom: none; 
 }
 
+.start_time {
+  background-color: black;
+  color: white;
+  padding: 2pt 4pt 2pt 4pt;
+  margin-right: 4pt;
+  -webkit-border-radius: 5px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 17pt;
+}
+.subtitle {
+  font-size: 14pt;
+  margin-top: 4pt;
+  line-height: 130%;
+}
+
+.room {
+  background-color:#E4E4E4;  
+  padding: 15px;
+  padding-top: 1px;  
+  min-height: 310px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 10px;  
+}
 
 .this_room {
-  padding: 0;  
-  width: 57%;
+  padding-top: 2px;    
+  width: 56%;
+  min-height: 643px;  
 }
 
 .other_rooms {
-  padding: 0;  
+
+
   clear: right;
   float: right;
   width: 37%;
