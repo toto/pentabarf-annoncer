@@ -1,4 +1,5 @@
 --- 
+root: /home/announcer/app/current/public
 cwd: /home/announcer/app/current
 log_file: log/mongrel.log
 port: 3000
