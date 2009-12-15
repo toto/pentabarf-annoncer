@@ -1,8 +1,8 @@
 --- 
-root: /home/announcer/app/current/public
-log_file: /home/announcer/app/current/log/mongrel.log
+cwd: /home/announcer/app/current
+log_file: log/mongrel.log
 port: 3000
-pid_file: /home/announcer/app/current/tmp/pids/mongrel.pid
+pid_file: tmp/pids/mongrel.pid
 servers: 3
 group: announcer
 group: announcer
