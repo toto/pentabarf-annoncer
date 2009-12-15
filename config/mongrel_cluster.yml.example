@@ -1,7 +1,7 @@
 --- 
 log_file: /home/announcer/app/shared/log/mongrel.log
 port: 3000
-pid_file: tmp/pids/mongrel.pid
+pid_file: /home/announcer/app/shared/pids/mongrel.pid
 servers: 3
 group: announcer
 group: announcer
