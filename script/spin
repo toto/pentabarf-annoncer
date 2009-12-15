@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/mongrel_rails cluster::start -C /home/announcer/app/current/config/mongrel_cluster.yml
