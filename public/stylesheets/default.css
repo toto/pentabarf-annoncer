@@ -35,7 +35,7 @@ dl {
   top: 0px;
   right: 0px;
   height: 45px;
-  width: auto;
+  width: auto;  
   -webkit-border-bottom-left-radius: 10px;
   background-color: #E4E4E4;  
 }
@@ -81,6 +81,10 @@ ul.events li:last-child {
   font-size: 14pt;
   margin-top: 4pt;
   line-height: 130%;
+}
+
+.js_date {
+  display: none;
 }
 
 .room {

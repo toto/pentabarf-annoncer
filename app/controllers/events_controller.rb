@@ -17,7 +17,7 @@ class EventsController < ApplicationController
                                                                                                 :include => :people,
                                                                                                 :limit => limit,
                                                                                                 :offset => 1)
-        render(:text => @events.to_json(:methods => :human_start_time)) 
+        render(:text => @events.to_json(:methods => [:human_start_time, :js_date])) 
       end      
     end
   end

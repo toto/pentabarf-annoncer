@@ -140,6 +140,10 @@ class Event < ActiveRecord::Base
   def human_start_time
     I18n.l(self.start_time, :format => :time)
   end
+  
+  def js_date
+    self.start_time.rfc2822
+  end
 
   protected
   def update_end_date_and_start_date

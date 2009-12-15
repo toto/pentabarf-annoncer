@@ -1,5 +1,25 @@
 
 <script type="text/javascript" charset="utf-8">
+  function sortListElements(list_selector, comparison_function) {
+    var mylist = $(list_selector);
+    var listitems = mylist.children('li').get();
+    listitems.sort(comparison_function);
+
+    $.each(listitems, function(idx, itm) { mylist.append(itm); });    
+  }
+
+  function sortListElementsByStartDate(list_selector) {
+    sortListElements(list_selector, function(a,b) {
+      var compA = Date.parse($(a).children('div.js_date').text());
+      var compB = Date.parse($(b).children('div.js_date').text());
+      console.debug("a: " + compA + "b: " + compB);
+      return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;      
+    });
+      
+
+    
+  }
+
   function domIdForEvent(this_event) {
     return 'room_' + this_event['room_id'] + '_event_' + this_event['id'];
   }
@@ -9,6 +29,7 @@
 
     var li = '<li id="' + domIdForEvent(this_event) +
     '" class="event" style="display: none">'+
+    '<div class="js_date">'+ this_event['js_date'] + "</div>" +
     '<dl><dt class="title">' + 
     '<span class="start_time">' + this_event['human_start_time'] + '</span>' +
     this_event['title'] + '</dt>' +
@@ -49,17 +70,12 @@
 
                 });
                 var ids_from_server = jQuery.map(data, function(n,i) {
-
                   return domIdForEvent(n['event']);
                 });
                 var ids_on_page = jQuery.map($("#room_" + room_id + "_events li"), function(n,i) {
-
                   return n.id;
                 });
-                
-
-
-                
+                                
                
                 jQuery.each(ids_on_page, function(index) {
                   var inArray = false;
@@ -77,6 +93,8 @@
                   }
 
                 });
+
+                sortListElementsByStartDate("#room_" + room_id + "_events");
               });    
   }
 </script>
