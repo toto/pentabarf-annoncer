@@ -5,9 +5,6 @@ class EventsController < ApplicationController
   before_filter :find_current_event
   
   def index
-
-
-        
     respond_to do |format| 
       format.html
       format.json do 
@@ -15,8 +12,7 @@ class EventsController < ApplicationController
         limit = limit.to_i        
         @events =  @room.events.for_day_in_conference(Time.now.to_date, @conference).future.all(:order => 'start_time ASC', 
                                                                                                 :include => :people,
-                                                                                                :limit => limit,
-                                                                                                :offset => 1)
+                                                                                                :limit => limit)
         render(:text => @events.to_json(:methods => [:human_start_time, :js_date])) 
       end      
     end
