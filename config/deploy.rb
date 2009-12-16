@@ -33,9 +33,9 @@ set :runner, 'announcer'
 set :use_sudo, false
 set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
 
-role :web, "saal1.local"#, "saal2.local", "saal3.local"
-role :app, "saal1.local"#, "saal2.local", "saal3.local"
-role :db, "saal1.local", :primary=>true #, "saal2.local", "saal3.local"
+role :web, "saal1.local", "saal2.local", "saal3.local"
+role :app, "saal1.local", "saal2.local", "saal3.local"
+role :db, "saal1.local", "saal2.local", "saal3.local", :primary=>true
 
 namespace :deploy do
   desc "Link all additional required directories and files"
@@ -62,5 +62,10 @@ namespace :congress do
   desc "Updated pentabarf from the internet"
   task :update_data do
     run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2009/Fahrplan/schedule.en.xml")'}
+  end
+  
+  desc "make it seem the congress starts today"
+  task :make_some_events_current do
+    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.make_some_events_current'}
   end
 end

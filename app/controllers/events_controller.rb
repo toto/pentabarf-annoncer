@@ -29,7 +29,7 @@ class EventsController < ApplicationController
   
   protected
   def find_room
-    @room = Room.find(params[:room_id])
+    @room = Room.find_by_id(params[:room_id]) || Room.find_by_name(params[:room_id])
     @other_rooms = Room.without_room(@room)
   end
   
