@@ -12,7 +12,10 @@ body {
 h1 {
   color: white;
   font-size: 1.8em;
+  margin-top: 0em;
+  padding-top: 0.6em;  
   margin-left: 15px;
+  
 }
 
 dl dd {
@@ -27,6 +30,7 @@ dl {
 /* Upcoming Events */
 
 #wrap {
+  margin: 0;
   width: 990px;
   height: 755px;
 }
@@ -99,8 +103,9 @@ ul.events li:last-child {
 }
 
 .this_room {
+  margin-left: 6px;    
   padding-top: 2px;    
-  width: 56%;
+  width: 55%;
   min-height: 643px;  
 }
 
