@@ -128,3 +128,13 @@ dl dd.people {
 .blue {
   border: 1px solid blue;
 }
+
+.this_room h2 {
+  margin-bottom: 0.2em;
+  margin-top: 0.5em;  
+}
+
+.other_rooms h3 {
+  margin-bottom: 0.2em;
+  margin-top: 0.5em;  
+}
