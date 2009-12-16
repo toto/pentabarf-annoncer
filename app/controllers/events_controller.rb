@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   
   before_filter :find_room
   before_filter :find_current_event
+  before_filter :find_today
   
   def index
     respond_to do |format| 
@@ -10,7 +11,7 @@ class EventsController < ApplicationController
       format.json do 
         limit = params[:limit] || 5
         limit = limit.to_i        
-        @events =  @room.events.for_day_in_conference(Time.now.to_date, @conference).future.all(:order => 'start_time ASC', 
+        @events =  @room.events.for_day_in_conference(@today, @conference).future.all(:order => 'start_time ASC', 
                                                                                                 :include => :people,
                                                                                                 :limit => limit)
         render(:text => @events.to_json(:methods => [:human_start_time, :js_date])) 
@@ -35,4 +36,13 @@ class EventsController < ApplicationController
   def find_current_event
     #@current_event = @room.events.for_date(Time.now)    
   end  
+  
+  def find_today
+    # if we are before the day break show yesterdays events otherwise todays.
+    @today = if Time.now < @conference.begin_time(Time.now.to_date)
+      Time.now.yesterday.to_date
+    else
+      Time.now.to_date
+    end
+  end
 end
