@@ -7,6 +7,7 @@ body {
   font-family: Arial, "MS Trebuchet", sans-serif;
   line-height: 150%;
   background-color: black;
+  overflow: hidden;
 }
 
 h1 {
@@ -106,15 +107,17 @@ ul.events li:last-child {
   margin-left: 6px;    
   padding-top: 2px;    
   width: 52%;
-  min-height: 643px;  
+  overflow: hidden;  
+  height: 643px;    
 }
 
 .other_rooms {
-
-
+  
   clear: right;
   float: right;
   width: 40%;
+  height: 310px;    
+  overflow: hidden;
 }
 
 dl dt.title {
