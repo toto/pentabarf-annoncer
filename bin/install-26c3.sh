@@ -4,7 +4,7 @@ export UNSTABLE="deb http://http.us.debian.org/debian unstable main contrib non-
 echo $UNSTABLE | cat - >> /etc/apt/sources.list
 aptitude update 
 aptitude safe-upgrade -y
-aptitude install build-essential openssh-server git-core ruby1.8 sudo rsync rubygems1.8 mongrel sqlite3 rake  vim ssh xorg gdm nginx libsqlite33-ruby1.8 libopenssl-ruby1.8 ruby1.8-dev libnokogiri-ruby1.8 avahi-daemon  mongrel-cluster
+aptitude install build-essential openssh-server git-core ruby1.8 sudo rsync rubygems1.8 mongrel sqlite3 rake  vim ssh xorg gdm nginx libsqlite33-ruby1.8 libopenssl-ruby1.8 ruby1.8-dev libnokogiri-ruby1.8 avahi-daemon  mongrel-cluster irb1.8
 # aptitude install --with-recommends bastille
 aptitude install --with-recommends epiphany-webkit arora
 

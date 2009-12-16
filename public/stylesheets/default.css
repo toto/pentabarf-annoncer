@@ -1,6 +1,8 @@
 /* Genral style */
 
 body {
+  padding: 0;
+  margin: 0;
   font-size: 14pt;
   font-family: Arial, "MS Trebuchet", sans-serif;
   line-height: 150%;
