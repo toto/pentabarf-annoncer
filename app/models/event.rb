@@ -148,11 +148,15 @@ class Event < ActiveRecord::Base
 
   protected
   def update_end_date_and_start_date
+    hour, min = self.start.hour, self.start.min
+    if hour == 0 && min == 0
+      hour, min = 23, 59 # HACK: fix date change bug
+    end
     self.start_time = DateTime.civil(self.date.year, 
                                      self.date.month, 
                                      self.date.day,
                                      self.start.hour,
-                                     self.start.min)
+                                     )
     self.end_time = self.start_time + self.duration
   end
 end
