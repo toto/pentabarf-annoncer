@@ -26,6 +26,7 @@ class Event < ActiveRecord::Base
   MAX_OTHER_ROOM_EVENTS = 2
   MAX_THIS_ROOM_EVENTS = 5
   REFRESH_TIME = (30.seconds.to_i * 1000)
+  PAGE_RELOAD_TIME = (30.minutes.to_i * 1000)
   
   named_scope :for_day_in_conference, lambda {|date, conference|
     {:conditions => ["(start_time BETWEEN ? AND ?)",

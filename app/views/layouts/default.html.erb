@@ -8,11 +8,17 @@
   	<%= stylesheet_link_tag 'default' %>
   	<%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.timers', 'jquery.jclock' %>
   	
+  	<script type="text/javascript" charset="utf-8">
+    function doLoad() {
+       setTimeout( "window.location.reload( true );",  <%= Event::PAGE_RELOAD_TIME %> );
+    }  	  	 
+  	</script>
+  	
   	<%= yield :javascript %>
   	
   </head>
   
-  <body>
+  <body onload="doLoad()">
     <div id="notification">
       <%= yield :notification %>
     </div>
