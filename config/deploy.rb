@@ -61,6 +61,7 @@ end
 namespace :congress do
   desc "Updated pentabarf from the internet"
   task :update_data do
+    # note that Event.import_from_pentabarf_url also works perfectly with a file path    
     run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2009/Fahrplan/schedule.en.xml")'}
   end
   
