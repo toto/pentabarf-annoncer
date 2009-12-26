@@ -155,8 +155,8 @@ class Event < ActiveRecord::Base
     self.start_time = DateTime.civil(self.date.year, 
                                      self.date.month, 
                                      self.date.day,
-                                     self.start.hour,
-                                     )
+                                     hour,
+                                     min)
     self.end_time = self.start_time + self.duration
   end
 end
