@@ -6,7 +6,8 @@ body {
   font-size: 14pt;
   font-family: Arial, "MS Trebuchet", sans-serif;
   line-height: 150%;
-  background-color: black;
+  background: #1b1b19 url(/images/cables.png) no-repeat;
+  
   overflow: hidden;
   cursor: none;
 }
@@ -16,6 +17,7 @@ h1 {
   font-size: 1.8em;
   margin-top: 0em;
   padding-top: 0.6em;  
+  padding-left: 70px;
   margin-left: 15px;
   
 }
@@ -28,8 +30,13 @@ dl {
   margin: 0;
 }
 
+
 /* Layout */
 /* Upcoming Events */
+
+span.current {
+  color: #e13c1c;
+}
 
 #wrap {
   margin: 0;
@@ -45,7 +52,7 @@ dl {
   height: 45px;
   width: auto;  
   -webkit-border-bottom-left-radius: 10px;
-  background-color: #E4E4E4;  
+  background-color: rgba(228, 228, 228, 0.73);  
 }
 
 #notification .jclock {
@@ -101,7 +108,7 @@ ul.events li:last-child {
 }
 
 .room {
-  background-color:#E4E4E4;  
+  background-color: rgba(228, 228, 228, 0.73);  
   padding: 15px;
   padding-top: 1px;  
   min-height: 310px;
