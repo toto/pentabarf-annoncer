@@ -36,9 +36,9 @@ set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
 hosts = ENV['HOSTS'].split(' ') unless ENV['HOSTS'].nil? || ENV['HOSTS'].empty?
 hosts ||= ["saal1.local", "saal2.local", "saal3.local"]
 
-role :web, "saal1.local", "saal2.local", "saal3.local"
-role :app, "saal1.local", "saal2.local", "saal3.local"
-role :db, "saal1.local", "saal2.local", "saal3.local", :primary=>true
+role :web, *hosts
+role :app, *hosts
+role :db, *(hosts << {:primary=>true})
 
 namespace :deploy do
   desc "Link all additional required directories and files"
