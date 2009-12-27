@@ -33,7 +33,7 @@
     '" class="event" style="display: none">'+
     '<div class="js_date">'+ this_event['js_date'] + "</div>" +
     '<dl><dt class="title">' + 
-    '<span class="start_time">' + this_event['human_start_time'] + '</span>' +
+    '<span class="start_time' + (this_event['current'] ? ' current' : '' )  + '">' + this_event['human_start_time'] + '</span>' +
     this_event['title'] + '</dt>' +
     '<dt class="subtitle">' + this_event['subtitle'] + '</dt>' +
     '<dd class="people">' + '' + '</dd>' +

@@ -34,7 +34,7 @@ class Event < ActiveRecord::Base
                      conference.end_time(date)]}
   }
 
-  named_scope :future, {:conditions => ['(start_time >= ?)', Time.now]}
+  named_scope :future, {:conditions => ['(end_time >= ?)', Time.now]}
   named_scope :in_room, lambda {|room|
     {:conditions => ['room_id = ?', room.id]}  
   }
@@ -146,7 +146,14 @@ class Event < ActiveRecord::Base
     self.start_time.rfc2822
   end
   
-  
+  def current
+    current?
+  end
+    
+  def current?
+    time = 1.hour.from_now # HACK: TZ fuckup of course
+    (self.start_time <= time && self.end_time > time)
+  end  
 
   protected
   def update_end_date_and_start_date

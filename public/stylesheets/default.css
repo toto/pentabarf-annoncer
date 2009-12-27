@@ -81,6 +81,11 @@ ul.events li:last-child {
   -webkit-border-radius: 5px;
 }
 
+.start_time.current {
+  background-color: #e13c1c;
+  color: white;  
+}
+
 .title {
   font-weight: bold;
   font-size: 17pt;
