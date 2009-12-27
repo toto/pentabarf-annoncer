@@ -145,6 +145,8 @@ class Event < ActiveRecord::Base
   def js_date
     self.start_time.rfc2822
   end
+  
+  
 
   protected
   def update_end_date_and_start_date

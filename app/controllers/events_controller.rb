@@ -12,7 +12,6 @@ class EventsController < ApplicationController
         limit = params[:limit] || 5
         limit = limit.to_i        
         @events =  @room.events.for_day_in_conference(@today, @conference).future.all(:order => 'start_time ASC', 
-                                                                                                :include => :people,
                                                                                                 :limit => limit)
         render(:text => @events.to_json(:methods => [:human_start_time, :js_date])) 
       end      
