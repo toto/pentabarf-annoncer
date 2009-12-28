@@ -23,7 +23,7 @@
   <ul class="events" id="room_<%= @room.id %>_events">
     
   </ul>
-  <%= periodically_refresh_room(@room) %>
+  <%= periodically_refresh_room(@room, Event::MAX_THIS_ROOM_EVENTS) %>
 </div>
 
 <%- content_for(:javascript) do -%>
