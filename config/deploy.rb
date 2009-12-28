@@ -34,7 +34,9 @@ set :use_sudo, false
 set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
 
 hosts = ENV['HOSTS'].split(' ') unless ENV['HOSTS'].nil? || ENV['HOSTS'].empty?
-hosts ||= ["26c3saal1.dyndns.org"]
+hosts ||= %w{26c3saal1.dyndns.org 26c3saal2.dyndns.org 26c3saal3.dyndns.org}
+
+
 
 role :web, *hosts
 role :app, *hosts

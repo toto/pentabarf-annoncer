@@ -52,6 +52,7 @@ span.current {
   height: 45px;
   width: auto;  
   -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius: 0px 0px 0px 10px ;  
   background-color: rgba(228, 228, 228, 0.73);  
 }
 
@@ -86,6 +87,7 @@ ul.events li:last-child {
   padding: 2pt 4pt 2pt 4pt;
   margin-right: 4pt;
   -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;  
 }
 
 .start_time.current {
@@ -114,6 +116,7 @@ ul.events li:last-child {
   min-height: 310px;
   margin-bottom: 10px;
   -webkit-border-radius: 10px;  
+  -moz-border-radius: 10px;    
 }
 
 .this_room {
