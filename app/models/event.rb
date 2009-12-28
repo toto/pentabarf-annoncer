@@ -34,6 +34,10 @@ class Event < ActiveRecord::Base
                      conference.end_time(date)]}
   }
 
+  named_scope :after, lambda {|time|
+    {:conditions => ['(end_time >= ?)', time]}
+  }
+
   named_scope :future, {:conditions => ['(end_time >= ?)', Time.zone.now]}
   named_scope :in_room, lambda {|room|
     {:conditions => ['room_id = ?', room.id]}  

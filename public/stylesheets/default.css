@@ -40,7 +40,7 @@ span.current {
 
 #wrap {
   margin: 0;
-  width: 990px;
+
   height: 755px;
 }
 
@@ -131,6 +131,7 @@ ul.events li:last-child {
   width: 40%;
   height: 316px;    
   overflow: hidden;
+  margin-right: 5px;
 }
 
 dl dt.title {

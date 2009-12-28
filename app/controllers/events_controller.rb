@@ -7,8 +7,8 @@ class EventsController < ApplicationController
   def index
     limit = params[:limit] || 5
     limit = limit.to_i      
-    @events = @room.events.this_day.future.all(:order => 'start_time ASC', 
-                                               :limit => limit)
+    @events = @room.events.this_day.after(Time.zone.now).all(:order => 'start_time ASC', 
+                                                             :limit => limit)
       
 
     respond_to do |format| 
