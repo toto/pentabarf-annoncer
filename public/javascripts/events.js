@@ -2,21 +2,19 @@
 /*global jQuery, Toolbox */
 // This was previously placed in app/views/events/index.html.erb
 
-(function($){
-
   function sortListElements(list_selector, comparison_function) {
-    var mylist = $(list_selector);
+    var mylist = jQuery(list_selector);
     var listitems = mylist.children('li').get();
     listitems.sort(comparison_function);
 
-    $.each(listitems, function(idx, itm) { mylist.append(itm); });    
+    jQuery.each(listitems, function(idx, itm) { mylist.append(itm); });    
   }
 
   function sortListElementsByStartDate(list_selector) {
     sortListElements(list_selector, function(a,b) {
-      var compA = Date.parse($(a).children('div.js_date').text());
-      var compB = Date.parse($(b).children('div.js_date').text());
-      console.debug("a: " + compA + "b: " + compB);
+      var compA = Date.parse(jQuery(a).children('div.js_date').text());
+      var compB = Date.parse(jQuery(b).children('div.js_date').text());
+      //console.debug("a: " + compA + "b: " + compB);
       return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;      
     });
       
@@ -41,7 +39,7 @@
     '<dd class="people">' + '' + '</dd>' +
     '</dl>' + "</li>";
     
-    return $(li);
+    return jQuery(li);
   }
 
   function insertEventNotInList(list_selector, events) {
@@ -49,26 +47,26 @@
 //      return this['id']
 //    });
     
-  //  $.each( ids_should_be_present, function() {
-//      if(!$())
+  //  jQuery.each( ids_should_be_present, function() {
+//      if(!jQuery())
   //  })
   }
   
   
   function getEventsAndUpdateList(room_id, limit) {
     var url = "/rooms/" + room_id + "/events.json?limit=" + limit;
-    console.log("gettin: " + url);
-    $.getJSON(url,
+    //console.log("gettin: " + url);
+    jQuery.getJSON(url,
               function(data) {
                 jQuery.each(data, function(index) {
                   var entry = makeListEntry(this.event);
-                  if( $('#' + domIdForEvent(this.event)).length ) {
-                    $('#' + domIdForEvent(this.event)).replaceWith(entry);
-                    $('#' + domIdForEvent(this.event)).show();
+                  if( jQuery('#' + domIdForEvent(this.event)).length ) {
+                    jQuery('#' + domIdForEvent(this.event)).replaceWith(entry);
+                    jQuery('#' + domIdForEvent(this.event)).show();
                   }
                   else {           
                     entry.appendTo("#room_" + room_id + "_events");
-                    $('#' + domIdForEvent(this.event)).toggle("slow");                    
+                    jQuery('#' + domIdForEvent(this.event)).toggle("slow");                    
                   }
 
 
@@ -76,7 +74,7 @@
                 var ids_from_server = jQuery.map(data, function(n,i) {
                   return domIdForEvent(n.event);
                 });
-                var ids_on_page = jQuery.map($("#room_" + room_id + "_events li"), function(n,i) {
+                var ids_on_page = jQuery.map(jQuery("#room_" + room_id + "_events li"), function(n,i) {
                   return n.id;
                 });
                                 
@@ -90,11 +88,11 @@
                     }
                   }
                   
-                  console.log("in array: " + inArray);
+                  //console.log("in array: " + inArray);
                   
                   if(!inArray) {
-                    $('#' + this).hide("slow");
-                    console.log("would remove: " + this);
+                    jQuery('#' + this).hide("slow");
+                    //console.log("would remove: " + this);
                   }
 
                 });
@@ -102,4 +100,3 @@
                 sortListElementsByStartDate("#room_" + room_id + "_events");
               });    
   }
-})(jQuery);
