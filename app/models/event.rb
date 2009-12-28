@@ -34,12 +34,28 @@ class Event < ActiveRecord::Base
                      conference.end_time(date)]}
   }
 
-  named_scope :future, {:conditions => ['(end_time >= ?)', Time.now]}
+  named_scope :future, {:conditions => ['(end_time >= ?)', Time.zone.now]}
   named_scope :in_room, lambda {|room|
     {:conditions => ['room_id = ?', room.id]}  
   }
   
+  named_scope :this_day, lambda {
+    conference = Conference.first
+    date = if Time.zone.now < conference.begin_time(Time.zone.now.to_date)
+      Time.zone.now.yesterday.to_date
+    else
+      Time.zone.now.to_date
+    end
 
+    begin_time = conference.begin_time(date)
+    end_time = conference.end_time(date)
+    
+    {:conditions => ["(start_time BETWEEN ? AND ?)",
+                     conference.begin_time(date),
+                     conference.end_time(date)]}    
+    
+  }
+  
   
   has_and_belongs_to_many :people, :join_table => "events_people", :foreign_key => "event_id"
   belongs_to :room
@@ -125,13 +141,15 @@ class Event < ActiveRecord::Base
       start_date = Event.first.date
       
       Event.find(:all, :conditions => ['date = ?', start_date]).each do |event|
-        event.date = Time.now.to_date
+        event.date = Time.zone.now.to_date
+        event.start_time = Time.now
         event.save
       end
       
       1.upto(3) do |i|
         Event.find(:all, :conditions => ['date = ?', start_date + i.days]).each do |event|
-          event.date = Time.now.to_date  + i.day
+          event.date = Time.zone.now.to_date#  + i.day
+          event.start_time = i.minutes.from_now
           event.save        
         end        
       end
@@ -151,7 +169,7 @@ class Event < ActiveRecord::Base
   end
     
   def current?
-    time = 1.hour.from_now # HACK: TZ fuckup of course
+    time = Time.zone.now
     (self.start_time <= time && self.end_time > time)
   end  
 
@@ -161,11 +179,13 @@ class Event < ActiveRecord::Base
     if hour == 0 && min == 0
       hour, min = 23, 59 # HACK: fix date change bug
     end
-    self.start_time = DateTime.civil(self.date.year, 
-                                     self.date.month, 
-                                     self.date.day,
-                                     hour,
-                                     min)
+    self.start_time = Time.zone.local(self.date.year, 
+                               self.date.month, 
+                               self.date.day,
+                               hour,
+                               min)
+    Rails.logger.debug "Set Start Time: #{self.start_time} from #{[self.date.year, self.date.month, self.date.day, hour, min].inspect}"
+    
     self.end_time = self.start_time + self.duration
   end
 end
