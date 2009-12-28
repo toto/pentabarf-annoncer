@@ -14,6 +14,8 @@
 
 class Conference < ActiveRecord::Base
   has_many :events
+
+  validates_presence_of :day_change
   
   def begin_time(date=Time.now.to_date)
     date.to_datetime.at_beginning_of_day + self.day_change.hour.hours + self.day_change.min.minutes
@@ -21,5 +23,9 @@ class Conference < ActiveRecord::Base
   
   def end_time(date=Time.now.to_date)
     date.to_datetime.tomorrow + self.day_change.hour.hours + self.day_change.min.minutes
+  end
+
+  def self.current
+    first || raise(ActiveRecord::RecordNotFound, "must have at least one conference")
   end
 end
