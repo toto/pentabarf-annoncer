@@ -54,7 +54,7 @@
   
   
   function getEventsAndUpdateList(room_id, limit) {
-    var url = "/rooms/" + room_id + "/events.json?limit=" + limit;
+    var url = "/rooms/" + room_id + "/events.json?limit=" + limit + "&random=" + Math.floor(Math.random() * 1000000);
     //console.log("gettin: " + url);
     jQuery.getJSON(url,
               function(data) {
