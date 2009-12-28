@@ -38,6 +38,7 @@ class Event < ActiveRecord::Base
   named_scope :in_room, lambda {|room|
     {:conditions => ['room_id = ?', room.id]}  
   }
+
   
 
   
@@ -45,7 +46,11 @@ class Event < ActiveRecord::Base
   belongs_to :room
   belongs_to :conference
   
+  validates_presence_of :date
+  validates_presence_of :start
   before_save :update_end_date_and_start_date
+
+  validates_numericality_of :duration
   
   def to_s
     "Event: '#{title}' (#{date} starting #{start_time})"
