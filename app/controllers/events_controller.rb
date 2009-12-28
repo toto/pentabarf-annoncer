@@ -2,8 +2,7 @@ class EventsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   
   before_filter :find_room
-  before_filter :find_current_event
-  before_filter :find_today
+
   
   def index
     limit = params[:limit] || 5
@@ -34,16 +33,5 @@ class EventsController < ApplicationController
     @other_rooms = Room.without_room(@room)
   end
   
-  def find_current_event
-    #@current_event = @room.events.for_date(Time.now)    
-  end  
   
-  def find_today
-    # if we are before the day break show yesterdays events otherwise todays.
-    @today = if Time.now < @conference.begin_time(Time.now.to_date)
-      Time.now.yesterday.to_date
-    else
-      Time.now.to_date
-    end
-  end
 end
