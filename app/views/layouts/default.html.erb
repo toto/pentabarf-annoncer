@@ -8,11 +8,11 @@
   	<%= stylesheet_link_tag 'default' %>
   	<%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.timers', 'jquery.jclock' %>
   	
-  	<script type="text/javascript" charset="utf-8">
+   <% javascript_tag do %>
     function doLoad() {
        setTimeout( "window.location.reload( true );",  <%= Event::PAGE_RELOAD_TIME %> );
     }  	  	 
-  	</script>
+  <% end %>
   	
   	<%= yield :javascript %>
   	
