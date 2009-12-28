@@ -17,9 +17,6 @@
       //console.debug("a: " + compA + "b: " + compB);
       return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;      
     });
-      
-
-    
   }
 
   function domIdForEvent(this_event) {
@@ -100,3 +97,8 @@
                 sortListElementsByStartDate("#room_" + room_id + "_events");
               });    
   }
+
+
+$(function() {
+    $.ajaxSetup({cache : false});
+});
