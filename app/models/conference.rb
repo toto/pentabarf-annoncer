@@ -22,4 +22,8 @@ class Conference < ActiveRecord::Base
   def end_time(date=Time.now.to_date)
     date.to_datetime.tomorrow + self.day_change.hour.hours + self.day_change.min.minutes
   end
+
+  def self.current
+    first || raise(ActiveRecord::RecordNotFound, "must have at least one conference")
+  end
 end
