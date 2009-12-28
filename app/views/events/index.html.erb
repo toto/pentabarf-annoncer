@@ -11,11 +11,7 @@
     </ul>
   </div>
   
-  <% javascript_tag do %>
-    var call = 'getEventsAndUpdateList("<%= room.id %>", "<%= Event::MAX_OTHER_ROOM_EVENTS %>");';
-    eval(call);
-    setInterval ( call, <%= Event::REFRESH_TIME %>);
-  <%- end -%>
+  <%= periodically_refresh_room(room) %>
   
 <%- end -%>
 
@@ -26,12 +22,7 @@
   <ul class="events" id="room_<%= @room.id %>_events">
     
   </ul>
-  <% javascript_tag do %>
-    var call = 'getEventsAndUpdateList("<%= @room.id %>", "<%= Event::MAX_THIS_ROOM_EVENTS %>");';
-    eval(call);
-    setInterval ( call, <%= Event::REFRESH_TIME %>);
-    
-  <% end %>
+  <%= periodically_refresh_room(@room) %>
 </div>
 
 <%- content_for(:javascript) do -%>
