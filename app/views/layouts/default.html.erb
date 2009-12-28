@@ -9,7 +9,7 @@
   	<%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.timers', 'jquery.jclock' %>
   	
    <% javascript_tag do %>
-    $(document).ready(function() {
+    $(function() {
       setTimeout( function() { document.reload; } , <%= Event::PAGE_RELOAD_TIME %> ); 
     });
   <% end %>
