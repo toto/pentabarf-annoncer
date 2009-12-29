@@ -1,7 +1,7 @@
 An live-announcer system for Pentabarf
 ====
 
-[Pentabarf](http://pentaparf.org) is a web-based conference planning system. This software parses the XML-Schedules of Pentabarf conferences and displays the current and the upcoming events on a webpage that is supposed to be displayed in a fullscreen browser between talks.
+[Pentabarf](http://pentabarf.org) is a web-based conference planning system. This software parses the XML-Schedules of Pentabarf conferences and displays the current and the upcoming events on a webpage that is supposed to be displayed in a fullscreen browser between talks.
 
 So far is is a bit specific to the [26C3](http://events.ccc.de/congress/2009) but it is supposed to be usable for all Pentabarf planned events.
 
