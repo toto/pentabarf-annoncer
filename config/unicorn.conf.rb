@@ -11,3 +11,4 @@ worker_processes 2 # this should be >= nr_cpus
 pid "/home/announcer/app/shared/pids/unicorn.pid"
 stderr_path "/home/announcer/app/shared/log/unicorn.log"
 stdout_path "/home/announcer/app/shared/log/unicorn.log"
+working_directory "/home/announcer/app/current"
