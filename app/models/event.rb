@@ -28,23 +28,23 @@ class Event < ActiveRecord::Base
   REFRESH_TIME = (30.seconds.to_i * 1000)
   PAGE_RELOAD_TIME = (30.minutes.to_i * 1000)
   
-  named_scope :for_day_in_conference, lambda {|date, conference|
+  scope :for_day_in_conference, lambda {|date, conference|
     {:conditions => ["(start_time BETWEEN ? AND ?)",
                      conference.begin_time(date),
                      conference.end_time(date)]}
   }
 
-  named_scope :after, lambda {|time|
+  scope :after, lambda {|time|
     {:conditions => ['(end_time >= ?)', time]}
   }
 
-  named_scope :future, {:conditions => ['(end_time >= ?)', Time.zone.now]}
-  named_scope :in_room, lambda {|room|
+  scope :future, {:conditions => ['(end_time >= ?)', Time.zone.now]}
+  scope :in_room, lambda {|room|
     {:conditions => ['room_id = ?', room.id]}  
   }
 
   
-  named_scope :this_day, lambda {
+  scope :this_day, lambda {
     conference = Conference.first
     date = if Time.zone.now < conference.begin_time(Time.zone.now.to_date)
       Time.zone.now.yesterday.to_date

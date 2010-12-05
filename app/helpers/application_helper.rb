@@ -13,11 +13,9 @@ module ApplicationHelper
     end
     tag = content_tag(:script, javascript_cdata_section(content), html_options.merge(:type => Mime::JS, :defer => 'defer'))
 
-    if block_called_from_erb?(block)
-      concat(tag)
-    else
+
       tag
-    end
+
   end
 
 end

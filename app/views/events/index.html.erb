@@ -7,7 +7,7 @@
 
 <%- @other_rooms.each do |room| -%>
   <div class="other_rooms room">
-    <h3><%= h(room.name) %></h3>
+    <h3><%= room.name %></h3>
     <ul class="events" id="room_<%= room.id %>_events">
     </ul>
   </div>
@@ -18,7 +18,7 @@
 
 
 <div class="this_room room">
-  <h2><%= h(@room.name) %></h2>
+  <h2><%= @room.name %></h2>
   
   <ul class="events" id="room_<%= @room.id %>_events">
     
@@ -26,7 +26,7 @@
   <%= periodically_refresh_room(@room, Event::MAX_THIS_ROOM_EVENTS) %>
 </div>
 
-<%- content_for(:javascript) do -%>
+<%= content_for(:javascript) do -%>
   <% javascript_tag do %>
   $(document).ready(function() {
     $(function($) {
@@ -41,6 +41,6 @@
   
 <%- end -%>
 
-<%- content_for(:notification) do -%>
+<%= content_for(:notification) do -%>
   <%= render :partial => "shared/clock" %>
 <%- end -%>
