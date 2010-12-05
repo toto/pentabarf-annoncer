@@ -7,7 +7,11 @@
 # a more verbose configuration using more features.
 
 listen 3000 # by default Unicorn listens on port 8080
+listen "/tmp/.unicorn_sock", :backlog => 64
+
 worker_processes 2 # this should be >= nr_cpus
+timeout 30
+
 pid "/home/announcer/app/shared/pids/unicorn.pid"
 stderr_path "/home/announcer/app/shared/log/unicorn.log"
 stdout_path "/home/announcer/app/shared/log/unicorn.log"
