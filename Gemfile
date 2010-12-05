@@ -17,6 +17,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
 
+gem 'mongrel'
+gem 'mongrel_cluster'
+
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'
