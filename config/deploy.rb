@@ -34,8 +34,8 @@ set :use_sudo, false
 set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
 
 hosts = ENV['HOSTS'].split(' ') unless ENV['HOSTS'].nil? || ENV['HOSTS'].empty?
-hosts ||= %w{26c3saal1.dyndns.org 26c3saal2.dyndns.org 26c3saal3.dyndns.org}
-
+#hosts ||= %w{26c3saal1.dyndns.org 26c3saal2.dyndns.org 26c3saal3.dyndns.org}
+hosts ||= %w{saal1.local saal2.local saal3.local}
 
 
 role :web, *hosts
@@ -67,13 +67,13 @@ namespace :congress do
   desc "Updated pentabarf from the internet"
   task :update_data do
     # note that Event.import_from_pentabarf_url also works perfectly with a file path    
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2009/Fahrplan/schedule.en.xml")'}
+    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/20010/Fahrplan/schedule.en.xml")'}
   end
   
   desc "Force reload of pentabarf from the internet"
   task :force_update_data do
     # note that Event.import_from_pentabarf_url also works perfectly with a file path    
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.delete_all; Event.import_from_pentabarf_url("http://events.ccc.de/congress/2009/Fahrplan/schedule.en.xml")'}
+    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.delete_all; Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
   end  
   
   desc "delets all events"

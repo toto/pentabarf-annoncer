@@ -13,7 +13,7 @@
 #
 
 class Conference < ActiveRecord::Base
-  has_many :events
+  has_many :events, :dependent => :destroy
 
   validates_presence_of :day_change
   
