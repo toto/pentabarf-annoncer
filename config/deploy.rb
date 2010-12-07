@@ -30,8 +30,9 @@ set :deploy_to, "/home/announcer/app"
 set :scm, :git
 set :user, 'announcer'
 set :runner, 'announcer'
-set :use_sudo, false
-set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
+#set :use_sudo, false
+default_run_options[:pty] = true
+#set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
 
 hosts = ENV['HOSTS'].split(' ') unless ENV['HOSTS'].nil? || ENV['HOSTS'].empty?
 #hosts ||= %w{26c3saal1.dyndns.org 26c3saal2.dyndns.org 26c3saal3.dyndns.org}
@@ -40,13 +41,17 @@ hosts ||= %w{saal1.local saal2.local saal3.local}
 
 role :web, *hosts
 role :app, *hosts
-role :db, *(hosts << {:primary=>true})
+role :db,  *hosts #<< {:primary=>true})
 
 namespace :deploy do
+#  task :restart do
+    
+#  end
+  
   desc "Link all additional required directories and files"
   task :after_symlink do
     run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
-    run "cp #{current_release}/config/mongrel_cluster.yml.example #{current_release}/config/mongrel_cluster.yml"
+  #  run "cp #{current_release}/config/mongrel_cluster.yml.example #{current_release}/config/mongrel_cluster.yml"
     run "ln -s #{deploy_to}/shared/db/production.sqlite3 #{current_release}/db/production.sqlite3"
   end    
   
@@ -67,7 +72,7 @@ namespace :congress do
   desc "Updated pentabarf from the internet"
   task :update_data do
     # note that Event.import_from_pentabarf_url also works perfectly with a file path    
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/20010/Fahrplan/schedule.en.xml")'}
+    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
   end
   
   desc "Force reload of pentabarf from the internet"
