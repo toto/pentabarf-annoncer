@@ -1,0 +1,10 @@
+development: 
+  username: toto
+  password: 2083126
+production: 
+  username: toto
+  password: 2083126
+test: 
+  username: toto
+  password: 2083126  
+

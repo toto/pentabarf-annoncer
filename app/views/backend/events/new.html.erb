@@ -1,0 +1,15 @@
+<%= form_for(@event) do |f| %>
+
+<p>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</p>
+
+<p>
+  <%= submit 'Create', :class => button %>
+  
+</p>
+<%- end -%>
+<%= content_for :navigation do %>
+  <%= navigation %>
+<%- end -%>

@@ -14,8 +14,11 @@
 
 class Conference < ActiveRecord::Base
   has_many :events, :dependent => :destroy
+  
+  validates_format_of :schedule_url, :with => URI::regexp
 
-  validates_presence_of :day_change
+
+#  validates_presence_of :title
   
   def begin_time(date=Time.now.to_date)
     date.to_datetime.at_beginning_of_day + self.day_change.hour.hours + self.day_change.min.minutes

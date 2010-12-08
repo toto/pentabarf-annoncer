@@ -1,9 +1,10 @@
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
   <%= javascript_include_tag 'events' %>
 <% end %>
 
 
-<h1><span class="current">26C3</span>&nbsp;Upcoming events</h1>
+<h5><%= @conference.title %></h5>
+<h1>&nbsp;Upcoming events</h1>
 
 <%- @other_rooms.each do |room| -%>
   <div class="other_rooms room">
@@ -27,7 +28,7 @@
 </div>
 
 <%= content_for(:javascript) do -%>
-  <% javascript_tag do %>
+  <%= javascript_tag do %>
   $(document).ready(function() {
     $(function($) {
       var options = {

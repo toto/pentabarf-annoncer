@@ -5,14 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
   	<title><%= @conference.title if @conference %></title>
-  	<%= stylesheet_link_tag 'default' %>
-  	<%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.timers', 'jquery.jclock' %>
-  	
-   <%= javascript_tag do %>
-    $(function() {
-      setTimeout( window.location.reload , <%= Event::PAGE_RELOAD_TIME %> ); 
-    });
-  <% end %>
+  	<%= stylesheet_link_tag 'common' %>  	
+  	<%= stylesheet_link_tag 'rooms' %>
+
   	
   	<%= yield :javascript %>
   	

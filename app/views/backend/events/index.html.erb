@@ -1,0 +1,11 @@
+<ul class="events">
+  <%- @events.each do |event| -%>
+    <%= content_tag_for(:li, event) do %>
+      <%= event.title %>
+    <%- end -%>
+  <%- end -%>
+</ul>
+
+<%= content_for :navigation do %>
+  <%= navigation %>
+<%- end -%>

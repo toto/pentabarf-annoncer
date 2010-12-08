@@ -7,7 +7,14 @@ class EventsController < ApplicationController
   def index
     limit = params[:limit] || 5
     limit = limit.to_i      
-    @events = @room.events.this_day.after(Time.zone.now).all(:order => 'start_time ASC', 
+    time = Time.zone.now
+    
+    
+    if SIMULATE_CONGRESS_DAY
+      time = Time.utc(Time.now.year, 12, 26 + SIMULATE_CONGRESS_DAY, Time.now.hour, Time.now.min)
+    end
+    
+    @events = @room.events.this_day.after(time).all(:order => 'start_time ASC', 
                                                              :limit => limit)
       
 
@@ -30,7 +37,10 @@ class EventsController < ApplicationController
   protected
   def find_room
     @room = Room.find_by_id(params[:room_id]) || Room.find_by_name(params[:room_id])
-    @other_rooms = Room.without_room(@room)
+    
+    logger.error(@room.events.inspect)
+    
+    @other_rooms = Room.without_room(@room).for_conference(@conference)
   end
   
   

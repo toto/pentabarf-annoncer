@@ -1,0 +1,83 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 13pt;
+  font-family: "Myriad", "MS Trebuchet", sans-serif;
+  background: #EEE;
+}
+
+label {
+  font-size: 10pt;
+  font-weight: bold;
+  display: block;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+form.button_to {
+  display: inline-block;
+}
+
+form input[type="text"] {
+  width: 80%;
+}
+
+form div.field_with_errors label {
+  color: #C00B31;
+}
+
+#wrap {
+  padding: 10pt;
+  width: 80%;
+  margin: 10pt auto 10pt auto;
+  background: white;
+  border-radius: 5pt;
+  -webkit-box-shadow: silver 0px 0px 2px 2px;
+}
+
+
+ul.conferences {
+  padding: 5pt;
+}
+
+ul.navigation {
+  list-style: none inside;
+  display: block;
+  width: 80%;
+  padding: 0;
+  margin: 10pt auto 10pt auto;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+
+
+ul.navigation li {
+  padding: 0;
+  margin: 0;
+  display: inline-block;  
+  background: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(1, #5A5C56),
+      color-stop(0, #191919));
+  border-radius: 4px;
+}
+
+ul.navigation li a {
+  color: #F8F8F8;
+  text-decoration: none;
+  display: inline-block;
+  padding: 4pt 8pt 4pt 8pt;
+
+}
+
+
+ul.conferences {
+  list-style: none;
+}

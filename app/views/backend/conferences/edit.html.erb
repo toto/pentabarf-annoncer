@@ -1,0 +1,10 @@
+<%= form_for(@conference, :url => backend_conference_path(@conference)) do |f| %>
+  <%= render :partial => "form", :object => f %>
+
+  <p>
+    <%= submit_tag 'Update', :class => 'button' %>
+  </p>
+<%- end -%>
+<%= content_for :navigation do %>
+  <%= raw navigation %>
+<%- end -%>

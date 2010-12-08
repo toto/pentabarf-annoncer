@@ -55,6 +55,7 @@
     //console.log("gettin: " + url);
     jQuery.getJSON(url,
               function(data) {
+								console.log("in data: " + data);
                 jQuery.each(data, function(index) {
                   var entry = makeListEntry(this.event);
                   if( jQuery('#' + domIdForEvent(this.event)).length ) {
@@ -85,7 +86,7 @@
                     }
                   }
                   
-                  //console.log("in array: " + inArray);
+                  
                   
                   if(!inArray) {
                     jQuery('#' + this).hide("slow");

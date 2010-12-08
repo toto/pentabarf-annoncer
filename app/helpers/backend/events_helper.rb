@@ -1,0 +1,2 @@
+module Backend::EventsHelper
+end

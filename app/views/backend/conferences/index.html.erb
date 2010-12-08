@@ -1,0 +1,25 @@
+<%= link_to('New Conference', 
+            new_backend_conference_path,
+            :class => 'button') %>
+
+<ul class="conferences">
+  <%- @conferences.each do |conference| -%>
+    <%= content_tag_for(:li, conference) do %>
+      <%= conference.title %><br/>
+      <small>
+        <%= link_to('Edit Schedule URL', edit_backend_conference_path(conference), 
+                    :class => 'small button') %> 
+        <%= button_to('Delete', backend_conference_path(conference), 
+                    :method => :delete, 
+                    :confirm => 'Are you sure you want to delete a conference?',
+                    :class => 'small button') %>         
+      </small>
+    <%- end -%>
+  <%- end -%>
+</ul>
+
+
+
+<%= content_for :navigation do %>
+  <%= raw(navigation) %>
+<%- end -%>

@@ -1,0 +1,2 @@
+module Backend::ConferencesHelper
+end

@@ -4,9 +4,9 @@ body {
   padding: 0;
   margin: 0;
   font-size: 14pt;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Myriad", "MS Trebuchet", sans-serif;
   line-height: 150%;
-  background: #1b1b19 url(/images/cables.png) no-repeat;
+  background: #1b1b19;
   
   overflow: hidden;
   cursor: none;
@@ -15,10 +15,19 @@ body {
 h1 {
   color: white;
   font-size: 1.8em;
+  margin: 0;
+  padding-top: 0px;  
+  padding-left: 0px;
   margin-top: 0em;
-  padding-top: 0.6em;  
-  padding-left: 70px;
-  margin-left: 15px;
+  margin-bottom: 12px;  
+  margin-left: 13px;
+}
+
+h5 {
+  color: white;
+  margin: 0;
+  padding: 0;
+  margin-left: 22px;  
   
 }
 

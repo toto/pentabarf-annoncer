@@ -1,0 +1,21 @@
+body {
+  font-size: 13pt;
+  font-family: "Myriad", "MS Trebuchet", sans-serif;
+  background: #EEE;
+}
+
+
+h1 {
+  text-align: center;  
+}
+
+ul {
+  text-align: center;
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  display: inline-block;
+}
+

@@ -1,5 +1,9 @@
-<ul>
-  <%- for room in @rooms -%>
-  <li><%= link_to("#{room.name}", room_events_path(room)) %></li>
+<h1>Choose the room this display is in</h1>
+<ul class="rooms">
+  <%- @rooms.each do |room| -%>
+    <li>
+      <%= link_to("#{room.name}", room_events_path(room),
+          :class => "button huge") %>
+    </li>
   <%- end -%>
 </ul>

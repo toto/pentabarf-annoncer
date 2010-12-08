@@ -1,0 +1,27 @@
+<%= link_to('Back to Conference Overview', backend_conference_path(@conference),
+            :class => 'button small') %>
+
+<h1><%= @conference.title %> Data Import</h1>
+<%- if @conference.import_running? -%>
+  <p>
+    Import running…
+  </p>
+  <%= button_to 'Cancel Import', backend_conference_import_path(@conference), 
+                :method => :delete, :class => 'button' %>
+<%- else -%>
+  <%- if @conference.events.count > 0 -%>
+    <p>
+      Import done.
+    </p>
+    <%= button_to 'Restart Import', backend_conference_import_path(@conference), 
+                  :method => :post, :class => 'button' %>  
+  <%- else -%>
+    <%= button_to 'Start Import', backend_conference_import_path(@conference), 
+                  :method => :post, :class => 'button' %>
+  <%- end -%>
+
+<%- end -%>
+
+<%= content_for :navigation do %>
+  <%= raw(navigation) %>
+<%- end -%>

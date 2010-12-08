@@ -32,5 +32,6 @@ gem 'unicorn'
 #   gem 'webrat'
 # end
 
-gem 'will_paginate'
+gem 'will_paginate', '3.0.pre2'
 gem 'nokogiri'
+gem "delayed_job", '2.1.2'

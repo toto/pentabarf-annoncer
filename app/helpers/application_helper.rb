@@ -2,7 +2,7 @@
 module ApplicationHelper
   def jquery(*args, &block)
     html_options = args.extract_options!
-    content = returning '' do |js|
+    content = ''.tap do |js|
       js << '(function($){' 
       if block
         js << capture(&block)

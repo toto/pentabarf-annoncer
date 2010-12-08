@@ -15,5 +15,6 @@ class ApplicationController < ActionController::Base
   protected
   def find_conference
     @conference = Conference.current # FIXME
+
   end
 end

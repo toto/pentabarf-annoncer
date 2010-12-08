@@ -46,10 +46,18 @@ class Event < ActiveRecord::Base
   
   scope :this_day, lambda {
     conference = Conference.first
-    date = if Time.zone.now < conference.begin_time(Time.zone.now.to_date)
-      Time.zone.now.yesterday.to_date
+    
+    now = if SIMULATE_CONGRESS_DAY
+      Time.utc(Time.now.year, 12, 26 + SIMULATE_CONGRESS_DAY, 12, 23)
     else
-      Time.zone.now.to_date
+      Time.zone.now
+    end
+     
+    
+    date = if now < conference.begin_time(now.to_date)
+      now.yesterday.to_date
+    else
+      now.to_date
     end
 
     begin_time = conference.begin_time(date)
@@ -90,15 +98,19 @@ class Event < ActiveRecord::Base
   end
   
   class <<self
-    def import_from_pentabarf_xml(raw_xml_or_io)
+    def import_from_pentabarf_xml(raw_xml_or_io, url=nil)
       xml  = Nokogiri::XML(raw_xml_or_io)
       
       Conference.transaction do
         # Import Conference
-        conference = nil
+        conference = (url.nil? ? nil : Conference.find_or_create_by_schedule_url(url)) 
+
         xml.xpath("//conference").each do |xml_conference|
           
-          conference = Conference.find_or_create_by_title(xml_conference.xpath("//title").first.content)
+          if conference.nil?
+            conference = Conference.find_or_create_by_title(xml_conference.xpath("//title").first.content) 
+          end
+
           xml_conference.children.each do |child|
             conference.send("#{child.node_name}=", child.content) if conference.respond_to?("#{child.node_name}=")
           end
@@ -124,7 +136,7 @@ class Event < ActiveRecord::Base
                   event.people << person
                 end
               when 'room'
-                event.room = Room.find_or_create_by_name(child.content)
+                event.room = Room.find_or_create_by_name_and_conference_id(child.content, conference.id)
               end
             end
           end
@@ -137,8 +149,10 @@ class Event < ActiveRecord::Base
     end
   
     def import_from_pentabarf_url(url)
+      conf = Conference.find_or_create_by_schedule_url(url)
+
       open(url) do |fd|
-        import_from_pentabarf_xml(fd)
+        import_from_pentabarf_xml(fd, url)
       end
     end
     
