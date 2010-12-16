@@ -4,16 +4,16 @@ body {
   padding: 0;
   margin: 0;
   font-size: 14pt;
-  font-family: "Myriad", "MS Trebuchet", sans-serif;
+  font-family: sans-serif;
   line-height: 150%;
-  background: #1b1b19;
+  background: #4C4C48;
   
   overflow: hidden;
   cursor: none;
 }
 
 h1 {
-  color: white;
+  color: #DCD7D0;
   font-size: 1.8em;
   margin: 0;
   padding-top: 0px;  
@@ -21,14 +21,16 @@ h1 {
   margin-top: 0em;
   margin-bottom: 12px;  
   margin-left: 13px;
+  text-shadow: black 0px 0px 5px;  
 }
 
 h5 {
-  color: white;
+  text-shadow: black 0px 0px 3px;  
+  color: #DCD7D0;
   margin: 0;
   padding: 0;
   margin-left: 22px;  
-  
+  font-weight: normal;
 }
 
 dl dd {
@@ -44,7 +46,7 @@ dl {
 /* Upcoming Events */
 
 span.current {
-  color: #e13c1c;
+  color: #343432;
 }
 
 #wrap {
@@ -62,7 +64,8 @@ span.current {
   width: auto;  
   -webkit-border-bottom-left-radius: 10px;
   -moz-border-radius: 0px 0px 0px 10px ;  
-  background-color: rgba(228, 228, 228, 0.73);  
+  -webkit-box-shadow: black 0px 0px 5px;
+  background-color: #DCD7D0;  
 }
 
 #notification .jclock {
@@ -100,7 +103,7 @@ ul.events li:last-child {
 }
 
 .start_time.current {
-  background-color: #e13c1c;
+  background-color: #343432;
   color: white;  
 }
 
@@ -119,7 +122,9 @@ ul.events li:last-child {
 }
 
 .room {
-  background-color: rgba(228, 228, 228, 0.73);  
+  background-color: #DCD7D0;
+  -webkit-box-shadow: black 0px 0px 5px;
+  /* rgba(228, 228, 228, 0.73);  */
   padding: 15px;
   padding-top: 1px;  
   min-height: 310px;
@@ -137,7 +142,7 @@ ul.events li:last-child {
 }
 
 .other_rooms {
-  
+  -webkit-box-shadow: black 0px 0px 5px;
   clear: right;
   float: right;
   width: 40%;
