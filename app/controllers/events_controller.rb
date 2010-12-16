@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     time = Time.zone.now
     
     
-    if SIMULATE_CONGRESS_DAY
+    if defined? SIMULATE_CONGRESS_DAY
       time = Time.utc(Time.now.year, 12, 26 + SIMULATE_CONGRESS_DAY, Time.now.hour, Time.now.min)
     end
     
