@@ -70,7 +70,7 @@ namespace :announcer do
   task :additional_symlinks do
     run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
   #  run "cp #{current_release}/config/mongrel_cluster.yml.example #{current_release}/config/mongrel_cluster.yml"
-    run "ln -s #{deploy_to}/shared/db/production.sqlite3 #{current_release}/db/production.sqlite3"
+    run "ln -sf #{deploy_to}/shared/db/production.sqlite3 #{current_release}/db/production.sqlite3"
   end    
   
   task :additional_setup do
