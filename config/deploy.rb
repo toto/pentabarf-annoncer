@@ -44,8 +44,8 @@ role :app, *hosts
 role :db,  *hosts #<< {:primary=>true})
 
 # Bluepill related tasks
-after "deploy:update", "unicorn:restart"
-namespace :unicorn do
+after "deploy:update", "deploy:restart"
+namespace :deploy do
   desc "Restart Unicorn"
   task :restart, :roles => [:app] do
     sudo "/etc/init.d/unicorn restart"
