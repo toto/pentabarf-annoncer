@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
   scope :this_day, lambda {
     conference = Conference.first
     
-    now = if SIMULATE_CONGRESS_DAY
+    now = if defined? SIMULATE_CONGRESS_DAY
       Time.utc(Time.now.year, 12, 26 + SIMULATE_CONGRESS_DAY, 12, 23)
     else
       Time.zone.now
