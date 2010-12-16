@@ -43,29 +43,39 @@ role :web, *hosts
 role :app, *hosts
 role :db,  *hosts #<< {:primary=>true})
 
-namespace :deploy do
-#  task :restart do
-    
-#  end
+# Bluepill related tasks
+after "deploy:update", "unicorn:restart"
+namespace :unicorn do
+  desc "Restart Unicorn"
+  task :restart, :roles => [:app] do
+    sudo "/etc/init.d/unicorn restart"
+  end
+ 
+  desc "Start Unicorn"
+  task :start, :roles => [:app] do
+    sudo "/etc/init.d/unicorn start"
+  end
+
+  desc "Stop Unicorn"
+  task :stop, :roles => [:app] do
+    sudo "/etc/init.d/unicorn stop"
+  end
+end
+
+after "deploy:symlink", "announcer:additional_symlinks"
+after "deploy:setup", "announcer:additional_setup"
+namespace :announcer do
   
   desc "Link all additional required directories and files"
-  task :after_symlink do
+  task :additional_symlinks do
     run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
   #  run "cp #{current_release}/config/mongrel_cluster.yml.example #{current_release}/config/mongrel_cluster.yml"
     run "ln -s #{deploy_to}/shared/db/production.sqlite3 #{current_release}/db/production.sqlite3"
   end    
   
-  task :after_setup do
+  task :additional_setup do
     run "mkdir -p #{deploy_to}/shared/db"
-  end
-  
-#  task :after_symlink do
-
-#  end
-  
- # task :restart do
- #   restart_mongrel_cluster
- # end
+  end  
 end
 
 namespace :congress do
