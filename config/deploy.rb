@@ -48,7 +48,7 @@ after "deploy:update", "deploy:restart"
 namespace :deploy do
   desc "Restart Unicorn"
   task :restart, :roles => [:app] do
-    sudo "/etc/init.d/unicorn restart"
+    sudo "/etc/init.d/unicorn stop &&  /etc/init.d/unicorn start"
   end
  
   desc "Start Unicorn"
@@ -82,22 +82,22 @@ namespace :congress do
   desc "Updated pentabarf from the internet"
   task :update_data do
     # note that Event.import_from_pentabarf_url also works perfectly with a file path    
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
+    run %Q{cd #{current_release} && /var/lib/gems/1.8/bin/rails runner -e production 'Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
   end
   
   desc "Force reload of pentabarf from the internet"
   task :force_update_data do
     # note that Event.import_from_pentabarf_url also works perfectly with a file path    
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.delete_all; Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
+    run %Q{cd #{current_release} && /var/lib/gems/1.8/bin/rails runner -e production 'Event.delete_all; Event.import_from_pentabarf_url("http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml")'}
   end  
   
   desc "delets all events"
   task :delete_events do
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.delete_all'}
+    run %Q{cd #{current_release} && /var/lib/gems/1.8/bin/rails runner -e production 'Event.delete_all'}
   end  
   
   desc "make it seem the congress starts today"
   task :make_some_events_current do
-    run %Q{cd #{current_release} && ruby script/runner -e production 'Event.make_some_events_current'}
+    run %Q{cd #{current_release} && /var/lib/gems/1.8/bin/rails runner -e production 'Event.make_some_events_current'}
   end
 end
