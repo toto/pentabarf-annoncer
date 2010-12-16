@@ -41,7 +41,7 @@ hosts ||= %w{saal1.local saal2.local saal3.local}
 
 role :web, *hosts
 role :app, *hosts
-role :db,  *hosts << {:primary=>true})
+role :db,  *hosts << {:primary=>true}
 
 # Bluepill related tasks
 after "deploy:update", "deploy:restart"
