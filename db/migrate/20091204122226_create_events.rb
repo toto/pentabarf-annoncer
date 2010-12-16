@@ -11,7 +11,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :type
       t.string :language
       t.text :abstract
-      t.description 
+      t.text :description 
       
       t.timestamps
     end
