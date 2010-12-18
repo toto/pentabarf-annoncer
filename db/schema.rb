@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101208170716) do
+ActiveRecord::Schema.define(:version => 20101218150622) do
 
   create_table "conferences", :force => true do |t|
     t.string   "title"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20101208170716) do
     t.datetime "updated_at"
     t.string   "schedule_url"
     t.boolean  "import_running", :default => false
+    t.string   "motto"
   end
 
   create_table "delayed_jobs", :force => true do |t|
