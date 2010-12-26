@@ -83,6 +83,7 @@ namespace :announcer do
   task :restart_gdm do
     sudo "/etc/init.d/gdm restart"
   end
+
 end
 
 namespace :congress do
