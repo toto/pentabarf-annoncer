@@ -21,6 +21,7 @@
 #
 
 require 'open-uri'
+require 'nokogiri'
 
 class Event < ActiveRecord::Base
   MAX_OTHER_ROOM_EVENTS = 2
@@ -35,7 +36,7 @@ class Event < ActiveRecord::Base
   }
 
   scope :after, lambda {|time|
-    {:conditions => ['(end_time >= ?)', time]}
+    {:conditions => ['(end_time >= ?) AND (start_time >= ?)', time, time]}
   }
 
   scope :future, {:conditions => ['(end_time >= ?)', Time.zone.now]}
@@ -202,9 +203,15 @@ class Event < ActiveRecord::Base
     if hour == 0 && min == 0
       hour, min = 23, 59 # HACK: fix date change bug
     end
+    day = self.date.day
+    
+    if hour < self.conference.day_change.hour
+      day = self.date.day + 1
+    end
+    
     self.start_time = Time.zone.local(self.date.year, 
                                self.date.month, 
-                               self.date.day,
+                               day,
                                hour,
                                min)
     Rails.logger.debug "Set Start Time: #{self.start_time} from #{[self.date.year, self.date.month, self.date.day, hour, min].inspect}"
