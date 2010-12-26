@@ -1,0 +1,10 @@
+development: 
+  username: announcer 
+  password: 23422342
+production: 
+  username: announcer
+  password: 23422342
+test: 
+  username: announcer
+  password: 23422342
+

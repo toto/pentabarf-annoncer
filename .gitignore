@@ -1,4 +1,5 @@
 .bundle
 db/*.sqlite3
 log/*.log
+config/auth.yml
 tmp/**/*
