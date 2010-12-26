@@ -43,8 +43,8 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     i18n (0.5.0)
-    kgio (2.0.0)
-    mail (2.2.12)
+    kgio (2.1.1)
+    mail (2.2.13)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -77,8 +77,8 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
-    unicorn (3.1.0)
-      kgio (~> 2.0.0)
+    unicorn (3.2.1)
+      kgio (~> 2.1)
       rack
     will_paginate (3.0.pre2)
 
