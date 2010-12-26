@@ -10,7 +10,7 @@
   	
    <%= javascript_tag do %>
     $(function() {
-      setTimeout( window.location.reload , <%= Event::PAGE_RELOAD_TIME %> ); 
+      setTimeout( window.location.reload(), <%= Event::PAGE_RELOAD_TIME %> ); 
     });
   <% end %>
   	
