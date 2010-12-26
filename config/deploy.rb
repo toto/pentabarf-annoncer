@@ -48,7 +48,7 @@ after "deploy:update", "deploy:restart"
 namespace :deploy do
   desc "Restart Unicorn"
   task :restart, :roles => [:app] do
-    sudo "/etc/init.d/unicorn stop &&  /etc/init.d/unicorn start"
+    sudo "/etc/init.d/unicorn restart"
   end
  
   desc "Start Unicorn"
@@ -62,6 +62,8 @@ namespace :deploy do
   end
 end
 
+
+after "deploy:update_code", "announcer:additional_symlinks"
 after "deploy:symlink", "announcer:additional_symlinks"
 after "deploy:setup", "announcer:additional_setup"
 namespace :announcer do
@@ -70,6 +72,7 @@ namespace :announcer do
   task :additional_symlinks do
     run "cp #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
   #  run "cp #{current_release}/config/mongrel_cluster.yml.example #{current_release}/config/mongrel_cluster.yml"
+    run "ln -sf #{deploy_to}/shared/config/auth.yml #{current_release}/config/auth.yml"
     run "ln -sf #{deploy_to}/shared/db/production.sqlite3 #{current_release}/db/production.sqlite3"
   end    
   
