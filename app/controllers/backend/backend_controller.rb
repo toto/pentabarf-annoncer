@@ -14,7 +14,7 @@ class Backend::BackendController < ApplicationController
   
   protected
   def authenticate_backend
-    authenticate_with_http_basic do |username, password|
+    authenticate_or_request_with_http_basic do |username, password|
       File.exist?(AUTH_FILE) &&
       AUTH &&
       AUTH[Rails.env.to_s] &&
