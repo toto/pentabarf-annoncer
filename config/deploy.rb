@@ -79,6 +79,10 @@ namespace :announcer do
   task :additional_setup do
     run "mkdir -p #{deploy_to}/shared/db"
   end  
+  
+  task :restart_gdm do
+    sudo "/etc/init.d/gdm restart"
+  end
 end
 
 namespace :congress do
