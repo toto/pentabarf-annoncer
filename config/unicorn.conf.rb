@@ -11,7 +11,7 @@ listen "/tmp/.unicorn_sock", :backlog => 64
 
 worker_processes 2 # this should be >= nr_cpus
 timeout 30
-preload_app true
+preload_app false
 
 pid "/home/announcer/app/shared/pids/unicorn.pid"
 stderr_path "/home/announcer/app/shared/log/unicorn.log"
