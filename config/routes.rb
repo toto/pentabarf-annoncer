@@ -6,6 +6,8 @@ Announcer::Application.routes.draw do
     end
   end
 
+  match '/backend' => 'backend/conferences#index'
+
   match '/' => 'rooms#index'
   resources :people
   resources :rooms do

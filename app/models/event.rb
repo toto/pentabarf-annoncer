@@ -188,6 +188,10 @@ class Event < ActiveRecord::Base
     self.start_time.rfc2822
   end
   
+  def blackout
+    self.conference && self.conference.blackout?
+  end
+  
   def current
     current?
   end

@@ -21,7 +21,7 @@ class EventsController < ApplicationController
     respond_to do |format| 
       format.html
       format.json do 
-        render(:text => @events.to_json(:methods => [:human_start_time, :js_date, :current])) 
+        render(:text => @events.to_json(:methods => [:human_start_time, :js_date, :current, :blackout])) 
       end      
     end
   end

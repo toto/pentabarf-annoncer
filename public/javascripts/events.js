@@ -55,8 +55,15 @@
     //console.log("gettin: " + url);
     jQuery.getJSON(url,
               function(data) {
-								console.log("in data: " + data);
+
+								
+								var blackout = false;
                 jQuery.each(data, function(index) {
+
+									blackout = blackout || this.event.blackout;
+									
+									console.log("in event blackout: " + blackout);
+									
                   var entry = makeListEntry(this.event);
                   if( jQuery('#' + domIdForEvent(this.event)).length ) {
                     jQuery('#' + domIdForEvent(this.event)).replaceWith(entry);
@@ -96,8 +103,19 @@
                 });
 
                 sortListElementsByStartDate("#room_" + room_id + "_events");
+
+								// hide everything if blackout is on
+								var superwrap = jQuery("#superwrap");
+								if (blackout) {
+									superwrap.show();
+								} else {
+									superwrap.hide();									
+								};
+								
               });    
   }
+
+
 
 
 $(function() {

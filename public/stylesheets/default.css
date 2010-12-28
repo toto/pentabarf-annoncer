@@ -52,8 +52,17 @@ span.current {
 
 #wrap {
   margin: 0;
-
   height: 755px;
+}
+
+#superwrap {
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 23;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 #notification {
