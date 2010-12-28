@@ -27,7 +27,7 @@ class Backend::ConferencesController < Backend::BackendController
     
     if @conference.update_attributes(params[:conference])
       flash[:notice] = "Conference updated"
-      redirect_to backend_conference_import_path(@conference) and return
+#      redirect_to backend_conference_import_path(@conference) and return
     end
     
     render(:action => :edit)    
