@@ -1,5 +1,6 @@
 namespace :announcer do
-  task :import_pentabarf do |task|
+  desc 'Import Pentabarf'
+  task :import_pentabarf => :enviroment do |task|
     Event.transaction do
       year = ENV["YEAR"] || "2010"
       puts "Importing events for #{year}"
